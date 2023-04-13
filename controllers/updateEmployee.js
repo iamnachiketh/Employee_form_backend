@@ -14,7 +14,9 @@ updateemployee = (req,res)=>{
         const contactDetail = [contactDetails];
          const contacts = contactDetail.map((contact) => ({ ...contact, employee_mail:email}));
         db.query('INSERT INTO contact_details (primarycontact,phone1,prelationship,secondarycontact,phone2,srelationship,employee_mail) VALUES ?', [contacts.map((contact) => Object.values(contact))],(err,r)=>{
-            //if(err) throw err;
+            if(err){
+                res.status(500).json({ error: error.message });
+            }
             console.log('this is result of insert query to contact details!!!',r);
             res.status(200).json({email, ...employee, contactDetails });
         });
