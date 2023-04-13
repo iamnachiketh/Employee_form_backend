@@ -14,7 +14,8 @@ listEmployee = async (req,res)=>{
             if (error) throw error
             console.log('this is count',count);
             total = count[0].total;
-            res.status(200).json({offset, size,total,employees});
+            const total_pages = Math.floor(total/size);
+            res.status(200).json({page,total_pages,offset, size,total,employees});
         });
     });
     //console.log('this is result',result);
